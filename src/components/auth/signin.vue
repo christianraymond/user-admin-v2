@@ -24,14 +24,15 @@ export default {
     return {
       email: "",
       password: "",
+      message: '{}'
     };
   },
   methods: {
     postLoginDetails() {
       const formData = {
         email: this.email,
-        password: '' + this.password,
-        token: '' + this.token
+        password: this.password,
+        token: this.token,
       };
       console.log(formData);
       this.$store.dispatch("login", {

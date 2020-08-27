@@ -51,24 +51,20 @@ export default new Vuex.Store({
     login({ commit }, authData) {
       const url = "https://1myy62by28.execute-api.af-south-1.amazonaws.com/default/demo-api";
       axios.post(url, {
-           email: authData.email,
-           password: authData.password,
-           returnSecureToken: true,
-           headers: [
-            { "X-localization": localStorage.getItem("lan") },
-            { "Access-Control-Allow-Origin": '*' },
-            { "Access-Control-Allow-Headers": 'Origin, X-Requested-With, Content-Type, Accept '},
-            { "Access-Control-Allow-Methods": "POST, GET, PUT, OPTIONS, DELETE" },
-          ]
-        })
-        .then(res => {
-          this.message = res.data.json;
-          console.log(res.data)
-          localStorage.setItem("token", res.data.idToken);
+        email: authData.email,
+        password: authData.password,
+        returnSecureToken: true,
+        headers: {
+          "Access-Control-Allow-Origin": '*'
+        },
+      }).then(res => {
+          this.message = res.data.message;
           localStorage.setItem("userId", res.data.localId);
+          localStorage.setItem("token", res.data.idToken);
           commit("authUser", {
+            response: res.data.message,
+            userId: res.data.localId,
             token: res.data.idToken,
-            userId: res.data.localId
           });
           router.push("/dashboard");
         })
