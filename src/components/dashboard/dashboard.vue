@@ -15,8 +15,7 @@
         <strong>Title: {{postItem.title}}</strong>
         <p class="post-body">{{postItem.body}}</p>
         <p class="post-body">{{postItem.created_at}} || {{postItem.updated_at}}</p>
-        <button v-on:click="remove" type="button">Delete post</button>
-        <span :span="postItem" v-on:remove="removePostItem"></span>
+        <button v-on:click="remove(postItem.id)">Delete post</button>
       </div>
     </div>
   </div>
@@ -24,16 +23,7 @@
 
 <script>
 import axios from "axios";
-import _ from "lodash";
-
 export default {
-  methods: {
-    remove: function() {
-      if (confirm("Are you sure?")) {
-        this.$emit("remove", this.postItem.id);
-      }
-    }
-  },
   name: "dashboard",
   data() {
     return {
@@ -41,24 +31,36 @@ export default {
       postItems: []
     };
   },
-  mounted() {
-    axios
-      .get("https://gorest.co.in/public-api/posts")
-      .then(res => {
-        console.log(res);
-        this.postItems = res.data.data;
-        console.log(JSON.parse(JSON.stringify(this.postItems.title)));
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
-  method: {
-    removePostItem(id) {
-      this.postItem = _.remove(this.postItem, function(postItem) {
-        return postItem.id !== id;
-      });
+  methods: {
+    getData() {
+      axios
+        .get("https://gorest.co.in/public-api/posts")
+        .then(res => {
+          console.log(res);
+          this.postItems = res.data.data;
+          console.log(JSON.parse(JSON.stringify(this.postItems.title)));
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    remove: function(id) {
+      if (confirm("Are you sure?")) {
+        axios
+          .delete("https://gorest.co.in/public-api/posts/" + id)
+          .then(res => {
+            console.log("deleted", res);
+            this.getData();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        this.$router.push("/");
+      }
     }
+  },
+  mounted() {
+    this.getData();
   }
 };
 </script>

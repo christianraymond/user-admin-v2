@@ -2,15 +2,18 @@
   <div id="app">
     <app-header />
     <router-view></router-view>
+    <Dashboard/>
   </div>
 </template>
 
 <script>
 import Header from "./components/header/header.vue";
+import Dashboard from './components/dashboard/dashboard.vue'
 export default {
   name: "app",
   components: {
-    "app-header": Header
+    "app-header": Header,
+    Dashboard
   },
   created() {
     this.$store.dispatch("AutoLogin");
