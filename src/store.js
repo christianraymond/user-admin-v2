@@ -45,8 +45,10 @@ export default new Vuex.Store({
           });
 
           router.push("/dashboard");
+        }).catch(err => {
+          console.log(err)
+          alert(err)
         })
-        .catch(error => console.log(error));
     },
     login({ commit }, authData) {
       const url = "https://1myy62by28.execute-api.af-south-1.amazonaws.com/default/demo-api";
@@ -58,17 +60,19 @@ export default new Vuex.Store({
           "Access-Control-Allow-Origin": '*'
         },
       }).then(res => {
-          this.message = res.data.message;
-          localStorage.setItem("userId", res.data.localId);
-          localStorage.setItem("token", res.data.idToken);
-          commit("authUser", {
-            response: res.data.message,
-            userId: res.data.localId,
-            token: res.data.idToken,
-          });
-          router.push("/dashboard");
-        })
-        .catch(error => console.log(error));
+        this.message = res.data.message;
+        localStorage.setItem("userId", res.data.localId);
+        localStorage.setItem("token", res.data.idToken);
+        commit("authUser", {
+          response: res.data.message,
+          userId: res.data.localId,
+          token: res.data.idToken,
+        });
+        router.push("/dashboard");
+      }).catch(err => {
+        console.log(err)
+        alert(err)
+      })
     },
     logout({ commit }) {
       commit("clearAuth");

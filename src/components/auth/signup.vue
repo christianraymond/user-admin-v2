@@ -4,11 +4,11 @@
       <form @submit.prevent="onSubmit">
         <div class="input">
           <label for="email">Your email</label>
-          <input type="email" id="email" v-model="email" placeholder="your mail address"/>
+          <input type="email" id="email" v-model="email" required placeholder="your mail address"/>
         </div>
         <div class="input">
           <label for="password">Password</label>
-          <input type="password" id="password" v-model="password" placeholder="your password"/>
+          <input type="password" id="password" v-model="password" required placeholder="your password"/>
         </div>
 
         <div class="submit">

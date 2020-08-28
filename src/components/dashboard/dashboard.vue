@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       title: "Post Request Summary",
-      postItems: []
+      postItems: [],
     };
   },
   methods: {
@@ -38,30 +38,29 @@ export default {
         .then(res => {
           console.log(res);
           this.postItems = res.data.data;
-          console.log(JSON.parse(JSON.stringify(this.postItems.title)));
+          // console.log(JSON.parse(JSON.stringify(this.postItems.title)));
         })
         .catch(err => {
           console.log(err);
         });
     },
     remove: function(id) {
-      if (confirm("Are you sure?")) {
-        axios
-          .delete("https://gorest.co.in/public-api/posts/" + id)
-          .then(res => {
-            console.log("deleted", res);
-            this.getData();
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        this.$router.push("/");
+      if(confirm("Are you sure?")) {
+        axios.delete("https://gorest.co.in/public-api/posts/"+id).then(() => {
+          this.getData();
+          alert('user with id number [' + id + '] has been deleted.')
+          this.$router.push("/");
+        })
+        .catch(err => {
+          console.log(err)
+          alert(err)
+        })
       }
     }
   },
   mounted() {
     this.getData();
-  }
+  },
 };
 </script>
 
