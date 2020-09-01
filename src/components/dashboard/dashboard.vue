@@ -11,7 +11,7 @@
     <div class="post-content">
       <h3>{{title}}</h3>
       <div v-for="postItem in postItems" v-bind:key="postItem.id">
-        <strong>User ID:{{postItem.id}} |</strong>
+        <strong>User ID: <b>{{postItem.id}}</b> |</strong>
         <strong>Title: {{postItem.title}}</strong>
         <p class="post-body">{{postItem.body}}</p>
         <p class="post-body">{{postItem.created_at}} || {{postItem.updated_at}}</p>
@@ -114,6 +114,12 @@ button {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+}
+b{
+  color:#d2691e;
+  font-size: 20px;
+  border: 2px solid red;
+  border-radius: 35px 10px;
 }
 button {
   transition-duration: 0.4s;
