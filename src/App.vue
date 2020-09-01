@@ -2,7 +2,6 @@
   <div id="app">
     <app-header />
     <router-view></router-view>
-    <Dashboard/>
   </div>
 </template>
 

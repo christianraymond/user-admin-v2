@@ -45,7 +45,8 @@ export default new Vuex.Store({
           });
 
           router.push("/dashboard");
-        }).catch(err => {
+        })
+        .catch(err => {
           console.log(err)
           alert(err)
         })
@@ -69,10 +70,11 @@ export default new Vuex.Store({
           token: res.data.idToken,
         });
         router.push("/dashboard");
-      }).catch(err => {
-        console.log(err)
-        alert(err)
       })
+        .catch(err => {
+          console.log(err)
+          alert(err)
+        })
     },
     logout({ commit }) {
       commit("clearAuth");

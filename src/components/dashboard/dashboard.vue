@@ -28,39 +28,39 @@ export default {
   data() {
     return {
       title: "Post Request Summary",
-      postItems: [],
+      postItems: []
     };
   },
   methods: {
+    remove: function(postItems, id) {
+      if (confirm("Are you sure?")) {
+        axios
+          .delete("https://gorest.co.in/public-api/posts/" + id)
+          .then(response => {
+            this.postItems.splice(id, 1);
+            return response(),
+            window.location.reload();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    },
     getData() {
       axios
         .get("https://gorest.co.in/public-api/posts")
         .then(res => {
           console.log(res);
           this.postItems = res.data.data;
-          // console.log(JSON.parse(JSON.stringify(this.postItems.title)));
         })
         .catch(err => {
           console.log(err);
         });
-    },
-    remove: function(id) {
-      if(confirm("Are you sure?")) {
-        axios.delete("https://gorest.co.in/public-api/posts/"+id).then(() => {
-          this.getData();
-          alert('user with id number [' + id + '] has been deleted.')
-          this.$router.push("/");
-        })
-        .catch(err => {
-          console.log(err)
-          alert(err)
-        })
-      }
     }
   },
   mounted() {
     this.getData();
-  },
+  }
 };
 </script>
 
@@ -93,6 +93,10 @@ export default {
 h1,
 p {
   text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 h3 {
   text-align: center;
