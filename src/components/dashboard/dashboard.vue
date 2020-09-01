@@ -117,8 +117,8 @@ button {
 }
 b{
   color:#d2691e;
-  font-size: 20px;
-  border: 2px solid red;
+  font-size: 18px;
+  border: 2px solid blue;
   border-radius: 35px 10px;
 }
 button {
